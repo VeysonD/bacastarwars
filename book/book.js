@@ -1,0 +1,5 @@
+window.Book = {
+  init: function() {
+    
+  }
+}
