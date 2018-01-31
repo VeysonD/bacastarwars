@@ -11,7 +11,7 @@ window.Book = {
                   '</div>' +
                 '</section>';
 
-    // retrieve characters
+
     $body.append(html);
     // $frame.append(html);
 
@@ -74,11 +74,8 @@ window.Book = {
         });
 
         // Initialize cache if haven't already
-
           cache.data = characters;
           Book.useCache(cache);
-
-
 
         // Append each character to the characters column
         characters.forEach(function(character) {
@@ -96,46 +93,6 @@ window.Book = {
         Book.addListListeners();
       });
     }
-
-
-    // // API call to store to retrieve characters
-    // store.getCharacters().then(function(characters) {
-    //   // sort characters alphabetically
-    //   characters.sort(function(a, b) {
-    //     var charA = a.name.toUpperCase();
-    //     var charB = b.name.toUpperCase();
-    //
-    //     if (charA < charB) {
-    //       return -1;
-    //     } else if (charA > charB) {
-    //       return 1;
-    //     } else {
-    //       return 0;
-    //     }
-    //   });
-    //
-    //   // // Initialize cache if haven't already
-    //   // if (initial === true) {
-    //   //   cache.data = characters;
-    //   //   Book.useCache(cache);
-    //   // }
-    //
-    //
-    //   // Append each character to the characters column
-    //   characters.forEach(function(character) {
-    //     var charHtml = `<div class="item" id="character-${character.id}">` +
-    //                       '<div class="name">' +
-    //                         character.name +
-    //                       '</div>' +
-    //                       '<div class="species">Species: ' + character.species +
-    //                       '</div>' +
-    //                     '</div>';
-    //     $characters.append(charHtml);
-    //   });
-    //
-    //   // Add listeners to all the characters
-    //   Book.addListListeners();
-    // });
   },
   addCancelListener: function() {
     var cancel = document.getElementsByClassName('cancel');
@@ -207,7 +164,6 @@ window.Book = {
               ch.picture = character.picture;
             }
           });
-          console.log('Updating cache:', window.Cache);
           resolve(character);
         })
       });
@@ -215,19 +171,14 @@ window.Book = {
     } else if (cache.method === 'INITIALIZE') {
       window.Cache.store = cache.store;
     } else if (cache.method === 'UPDATE STORE') {
-      console.log('UPDATING ZE STORE');
       // Update store characters
       window.Cache.store.updateCharacter(cache.updateCharacter).then(function() {
-        console.log('UPDATING ZE STORE 2');
         // Update cache characters
         window.Cache.characters.forEach(function(character, index) {
           if (character.id === cache.updateCharacter.id) {
             window.Cache.characters[index] = cache.updateCharacter;
           }
         });
-        Book.addCharacters();
-        console.log('FINAL STEP?:', window.Cache.characters);
-
       });
     }
   },
@@ -279,9 +230,11 @@ window.Book = {
       method: 'UPDATE STORE',
       updateCharacter: updatedCharacter
     });
+
+    // Clear page and re-add updated characters
     Book.cleanPreviousInfo();
-
-
+    Book.cleanPreviousList();
+    Book.addCharacters();
   },
   renderCharacter: function(character) {
     var html;
