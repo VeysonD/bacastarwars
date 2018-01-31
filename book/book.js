@@ -74,24 +74,28 @@ window.Book = {
   },
   useCache: function(cache, id) {
     console.log('WHAT IS CACHE DATA:', cache);
+    // Store character data
     if (cache.method === 'STORE') {
       window.Cache.characters = cache.data;
-      console.log('What is the cache:', window.Cache);
+    // Retrieve character data
     } else if (cache.method === 'RETRIEVE') {
       return window.Cache.characters.filter(function(character) {
         return character.id === id;
       })
+    // Update cache
     } else if (cache.method === 'UPDATE CACHE') {
-      window.Cache.store.getCharacterDetails(id).then(function(character) {
-        window.Cache.characters.forEach(function(ch) {
-          if (ch.id === id) {
-            ch.description = character.description;
-            ch.picture = character.picture;
-          }
-        });
-        console.log('Updating cache:', window.Cache);
-        return character;
-      })
+      return new Promise(function(resolve, reject) {
+        window.Cache.store.getCharacterDetails(id).then(function(character) {
+          window.Cache.characters.forEach(function(ch) {
+            if (ch.id === id) {
+              ch.description = character.description;
+              ch.picture = character.picture;
+            }
+          });
+          console.log('Updating cache:', window.Cache);
+          resolve(character);
+        })
+      });
     } else if (cache.method === 'INITIALIZE') {
       window.Cache.store = cache.store;
     }
@@ -99,9 +103,14 @@ window.Book = {
   handleClick: function(id) {
     Book.renderInfo((id.split('-')[1] - 0));
   },
-  renderInfo: function(index) {
+  renderCharacter: function(character) {
     var html;
-    var info = document.getElementById('info');
+    var $info = $('#info');
+    html = '<div id="character-card" class="character-details">' + '<div class=picture>' + `<img src="./${character.picture}">` + '</div>'+ '</div>' +
+    '</div>';
+    $info.append(html);
+  },
+  renderInfo: function(index) {
     var characterCard = document.getElementById('character-card');
 
     // Retrieve character by index
@@ -110,22 +119,21 @@ window.Book = {
     }, index)[0];
 
 
-    // console.log('What is the character info:', character);
-    // console.log('What is character description:', character.description);
-    // console.log('What is the info:', window.Cache);
-    // Check if character is cached, if it isn't then cache it
+    // Render and Check if character is cached, if it isn't then cache it
     if (!character.description) {
-      Book.useCache({
+      character = Book.useCache({
         method: 'UPDATE CACHE'
-      }, index);
-    }
+      }, index).then(function(character) {
+        Book.renderCharacter(character);
+      });
+    } else {
+      Book.renderCharacter(character);
+    };
 
-    // Clean up previous Info
+    // Clean up previous render
     if (characterCard) {
       characterCard.parentNode.removeChild(characterCard);
-    }
-    // Render new info
-
+    };
   }
 }
 
