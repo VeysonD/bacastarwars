@@ -13,14 +13,16 @@
 .character {
   grid-row: 1fr;
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .character-name {
-  float: left;
+  text-align: left
 }
 
 .character-species {
-  
+
 }
 
 .character-info {
