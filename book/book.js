@@ -18,6 +18,9 @@ window.Book = {
   },
   addCharacters: function(store) {
     var $characters = $('#characters');
+    var cache = {
+      method: 'STORE'
+    };
 
     // API call to store to retrieve characters
     store.getCharacters().then(function(characters) {
@@ -34,6 +37,8 @@ window.Book = {
           return 0;
         }
       });
+      cache.data = characters;
+      Book.useCache(cache);
       // console.log('promise resolved:', characters);
 //  onClick="handleClick(' + 0 +')"
       // Append each character to the characters column
@@ -56,8 +61,23 @@ window.Book = {
 
     for (var i = 0; i < characters.length; i++) {
       characters[i].addEventListener('click', function(event) {
-        console.log(this.id);
+        Book.handleClick(this.id);
       })
+    };
+
+  },
+  useCache: function(cache, id) {
+    console.log('WHAT IS DATA:', cache)
+    if (cache.method === 'STORE') {
+      window.Cache = cache.data;
+      console.log('What is the cache:', window.Cache);
+    } else if (method.method === 'RETRIEVE') {
+      return window.Cache[id - 1];
     }
-  }
+  },
+  handleClick: function(id) {
+    console.log(id);
+  },
 }
+
+window.Cache = [];
