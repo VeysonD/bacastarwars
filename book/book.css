@@ -5,9 +5,12 @@
   grid-template-rows: repeat(auto-fill, 1fr);
 }
 
-.characters {
+#characters {
   background-color: green;
-  display: inline;
+}
+
+.characters-container {
+
 }
 
 .character {
@@ -18,11 +21,11 @@
 }
 
 .character-name {
-  text-align: left
+  text-align: left;
 }
 
 .character-species {
-
+  text-align: left;
 }
 
 .character-info {

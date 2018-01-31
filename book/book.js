@@ -2,13 +2,9 @@ window.Book = {
   init: function(frame, store) {
     var $frame = $('#test-frame');
     var $body = $('body');
-    var $test = $('.character-info');
+
     var html =  '<section class="container">' +
-                  '<div class="characters">Characters' +
-                    // '<div class="character">1</div>' +
-                    // '<div class="character">2</div>' +
-                    // '<div class="character">3</div>' +
-                    // '<div class="character">4</div>' +
+                  '<div id="characters" class="characters-container">Characters' +
                   '</div>' +
                   '<div class="character-info">Character info</div>' +
                 '</section>';
@@ -16,10 +12,14 @@ window.Book = {
     // retrieve characters
     console.log(this);
     $body.append(html);
+    document.getElementById('characters').addEventListener('click', function(event) {
+      console.log(event.target);
+    });
+
     this.addCharacters(store);
   },
   addCharacters: function(store) {
-    var $characters = $('.characters');
+    var $characters = $('#characters');
 
     // API call to store to retrieve characters
     store.getCharacters().then(function(characters) {
@@ -36,9 +36,11 @@ window.Book = {
           return 0;
         }
       });
-      console.log('promise resolved:', characters);
+      // console.log('promise resolved:', characters);
+
+      // Append each character to the characters column
       characters.forEach(function(character) {
-        var charHtml =  '<div class="character">' +
+        var charHtml =  '<div class="character" id=character-' + character.id+'>' +
                           '<div class="character-name">' + character.name +
                           '</div>' +
                           '<div class="character-species">Species: ' + character.species +
