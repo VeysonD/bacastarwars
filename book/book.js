@@ -12,11 +12,9 @@ window.Book = {
     // retrieve characters
     console.log(this);
     $body.append(html);
-    document.getElementById('characters').addEventListener('click', function(event) {
-      console.log(event.target);
-    });
 
     this.addCharacters(store);
+    // this.addListeners();
   },
   addCharacters: function(store) {
     var $characters = $('#characters');
@@ -37,7 +35,7 @@ window.Book = {
         }
       });
       // console.log('promise resolved:', characters);
-
+//  onClick="handleClick(' + 0 +')"
       // Append each character to the characters column
       characters.forEach(function(character) {
         var charHtml =  '<div class="character" id=character-' + character.id+'>' +
@@ -48,6 +46,18 @@ window.Book = {
                         '</div>';
         $characters.append(charHtml);
       });
+
+      // Add listeners to all the characters
+      Book.addListeners();
     });
+  },
+  addListeners: function() {
+    var characters = document.getElementsByClassName('character');
+
+    for (var i = 0; i < characters.length; i++) {
+      characters[i].addEventListener('click', function(event) {
+        console.log(this.id);
+      })
+    }
   }
 }
