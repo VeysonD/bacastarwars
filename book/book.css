@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: repeat(auto-fill, 1fr);
+}
+
+.characters {
+  background-color: green;
+  display: inline;
+}
+
+.character {
+  grid-row: 1fr;
+  text-align: center;
+}
+
+.character-name {
+  float: left;
+}
+
+.character-species {
+  
+}
+
+.character-info {
+  font-size: 72px;
+  text-align: center;
+}
