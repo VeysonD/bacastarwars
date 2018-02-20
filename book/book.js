@@ -7,7 +7,7 @@ window.Book = {
                   '<div class="list" id="list"><h1>Characters</h1>' +
                     '<div id="characters"></div>' +
                   '</div>' +
-                  '<div class="character-info" id="info">Character info'  + '<div id="character-card" class="welcome">Welcome to Base Case Star Wars</div>' +
+                  '<div class="character-info" id="info">'  + '<div id="character-card" class="welcome"><h1>Welcome to Base Case Star Wars</h1></div>' +
                   '</div>' +
                 '</section>';
 
@@ -238,11 +238,12 @@ window.Book = {
     var html;
     var $info = $('#info');
     html =  '<div id="character-card" class="details">' +
+              '<div class="name">' + character.name + '</div>' +
+              '<div class="species">' + character.species + '</div>' +
               '<div class="picture">' +
                 `<img src="./${character.picture}">` +
               '</div>' +
-              '<div class="name">' + character.name + '</div>' +
-              '<div class="species">' + character.species + '</div>' +
+
               '<div class="description">' + character.description + '</div>' +
               `<button class="edit" id="edit-${character.id}">Edit</button>` +
             '</div>';

@@ -13,6 +13,15 @@
   border: 3px;
 }
 
+#character-card .name {
+  text-align: center;
+  font-size: 48px;
+}
+
+#character-card .species {
+  text-align: center;
+}
+
 h1 {
   text-align: center;
 }
