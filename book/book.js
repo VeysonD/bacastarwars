@@ -192,7 +192,7 @@ window.Book = {
     }, id)[0];
     var html =  '<form id="character-card" name="editor" class="editor">' +
                   '<div class="picture">' +
-                    `<img src="./${character.picture}" class="editor-picture">` +
+                    `<img src="./${character.picture}" class="editor-picture" alt="picture of ${character.name}">` +
                   '</div>' +
                   'Name: ' + `<input type="text" name="name" class="editor-name" placeholder="${character.name}" required>` + '<br>' +
                   'Species: ' + `<input type="text" name="species" class="editor-species" placeholder="${character.species}" required>` + '<br>' + 'Description: ' +
