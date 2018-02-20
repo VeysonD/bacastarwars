@@ -4,7 +4,7 @@ window.Book = {
     var $body = $('body');
 
     var html =  '<section class="container">' +
-                  '<div class="list" id="list">Characters' +
+                  '<div class="list" id="list"><h1>Characters</h1>' +
                     '<div id="characters"></div>' +
                   '</div>' +
                   '<div class="character-info" id="info">Character info'  + '<div id="character-card" class="welcome">Welcome to Base Case Star Wars</div>' +
@@ -38,7 +38,6 @@ window.Book = {
 
     // If the store has already been cached
     if (!store) {
-      console.log('WHEN DOES THIS RUN');
       intial = false;
       characters = window.Cache.characters;
 
@@ -191,7 +190,6 @@ window.Book = {
     var character = Book.useCache({
       method: 'RETRIEVE',
     }, id)[0];
-    console.log('what is the character:', character);
     var html =  '<form id="character-card" name="editor" class="editor">' +
                   '<div class="picture">' +
                     `<img src="./${character.picture}" class="editor-picture">` +

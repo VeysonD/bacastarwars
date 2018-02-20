@@ -5,8 +5,16 @@
   grid-template-rows: repeat(auto-fill, 1fr);
 }
 
+#list {
+
+}
+
 #characters {
-  background-color: green;
+  border: 3px;
+}
+
+h1 {
+  text-align: center;
 }
 
 .list {
@@ -18,10 +26,12 @@
   text-align: center;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  font: Arial;
 }
 
 .name {
   text-align: left;
+  font-weight: bold;
 }
 
 .species {
@@ -29,7 +39,7 @@
 }
 
 .character-info {
-  font-size: 72px;
+  font-size: 36px;
   text-align: center;
 }
 
